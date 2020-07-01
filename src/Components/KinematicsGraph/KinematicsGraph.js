@@ -23,16 +23,40 @@ const KinematicsGraph = ({ data }) => {
   };
 
   useEffect(() => {
-    console.log("RENDER GRAPH");
+    // console.log(maxPos(data)[0]);
   });
+
+  // Outputs in format [MAX TIME, MAX POS]
+  const maxFromData = (d) => {
+    const maxFromSet1 = d[0].data.reduce((acc, val) => {
+      acc[0] = acc[0] === undefined || val.x > acc[0] ? val.x : acc[0];
+      acc[1] = acc[1] === undefined || val.y > acc[1] ? val.y : acc[1];
+      return acc;
+    }, []);
+
+    const maxFromSet2 = d[1].data.reduce((acc, val) => {
+      acc[0] = acc[0] === undefined || val.x > acc[0] ? val.x : acc[0];
+      acc[1] = acc[1] === undefined || val.y > acc[1] ? val.y : acc[1];
+      return acc;
+    }, []);
+
+    return [
+      Math.max(maxFromSet1[0], maxFromSet2[0]),
+      Math.max(maxFromSet1[1], maxFromSet2[1]),
+    ];
+  };
+
+  const [maxTime, maxPos] = maxFromData(data);
 
   return (
     <ResponsiveLine
       data={data}
       margin={{ top: 20, right: 10, bottom: 58, left: 50 }}
-      xScale={{ type: "linear" }}
+      xScale={{ type: "linear", min: 0, max: maxTime < 2 ? 2 : "auto" }}
       yScale={{
         type: "linear",
+        min: 0,
+        max: maxPos > 5 ? maxPos : 5,
       }}
       axisTop={null}
       axisRight={null}
@@ -41,6 +65,7 @@ const KinematicsGraph = ({ data }) => {
         tickSize: 5,
         tickPadding: 3,
         tickRotation: 0,
+        tickValues: 5,
         legend: "time",
         legendOffset: 40,
         legendPosition: "middle",
@@ -55,17 +80,15 @@ const KinematicsGraph = ({ data }) => {
         legendOffset: -40,
         legendPosition: "middle",
       }}
-      colors={"orangered"}
+      curve={"cardinal"}
+      colors={["#d6195b", "#1c98fc"]}
       pointSize={0}
-      lineWidth={5}
-      pointColor={"white"}
+      lineWidth={7}
       pointLabel="y"
       pointLabelYOffset={-12}
       isInteractive={true}
       useMesh={true}
-      animate={true}
-      motionStiffness={230}
-      motionDamping={24}
+      animate={false}
       theme={graphSettings.theme}
     />
   );

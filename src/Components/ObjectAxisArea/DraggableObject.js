@@ -72,6 +72,7 @@ const DraggableObject = (props) => {
   const styles = useMemo(
     () => ({
       cursor: state.isDragging ? "-webkit-grabbing" : "-webkit-grab",
+
       transform: `translate(${state.translation.x}px,${state.translation.y}px`,
       transition: state.isDragging ? "none" : "transform 500ms",
       zIndex: state.isDragging ? 2 : 1,
@@ -85,9 +86,13 @@ const DraggableObject = (props) => {
 
   useEffect(() => {
     props.setPosX(state.translation.x);
-  }, [state.translation]);
+  }, [state.translation, props]);
+
+  useEffect(() => {
+    console.log("RENDER OBJECT");
+  });
 
   return <div style={styles} onMouseDown={handleMouseDown} />;
 };
 
-export default DraggableObject;
+export default React.memo(DraggableObject);
