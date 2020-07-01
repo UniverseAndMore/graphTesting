@@ -111,8 +111,8 @@ const MatterScene = (props) => {
   useEffect(() => {
     state.render &&
       props.setPosX(
-        state.render.engine.world.bodies[5].position.x,
-        state.render.engine.world.bodies[4].position.x
+        state.render.engine.world.bodies[5].position.x, //red ball
+        state.render.engine.world.bodies[4].position.x //blue ball
       );
   });
 

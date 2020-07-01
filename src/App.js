@@ -55,9 +55,13 @@ const App = () => {
             {
               x: !prevData[0].data.length
                 ? 0
-                : prevData[0].data[prevData[0].data.length - 1].x +
-                  TIMESTEP / 1000,
-              y: dataToAdd[0] / 100,
+                : Math.round(
+                    (prevData[0].data[prevData[0].data.length - 1].x +
+                      TIMESTEP / 1000 +
+                      Number.EPSILON) *
+                      100
+                  ) / 100,
+              y: Math.round((dataToAdd[0] / 100 + Number.EPSILON) * 100) / 100,
             },
           ],
         },
@@ -68,9 +72,13 @@ const App = () => {
             {
               x: !prevData[1].data.length
                 ? 0
-                : prevData[1].data[prevData[1].data.length - 1].x +
-                  TIMESTEP / 1000,
-              y: dataToAdd[1] / 100,
+                : Math.round(
+                    (prevData[1].data[prevData[1].data.length - 1].x +
+                      TIMESTEP / 1000 +
+                      Number.EPSILON) *
+                      100
+                  ) / 100,
+              y: Math.round((dataToAdd[1] / 100 + Number.EPSILON) * 100) / 100,
             },
           ],
         },

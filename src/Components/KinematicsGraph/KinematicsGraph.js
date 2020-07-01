@@ -52,11 +52,11 @@ const KinematicsGraph = ({ data }) => {
     <ResponsiveLine
       data={data}
       margin={{ top: 20, right: 10, bottom: 58, left: 50 }}
-      xScale={{ type: "linear", min: 0, max: maxTime < 2 ? 2 : "auto" }}
+      xScale={{ type: "linear", min: 0, max: 5 }} //maxTime < 2 ? 2 : "auto" }}
       yScale={{
         type: "linear",
         min: 0,
-        max: maxPos > 5 ? maxPos : 5,
+        max: 10, //maxPos > 5 ? maxPos : 5,
       }}
       axisTop={null}
       axisRight={null}
